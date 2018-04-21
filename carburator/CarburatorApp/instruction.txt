@@ -1,0 +1,49 @@
+1) Install ionic 3
+2) Install Android Studio.
+3) Include SDK platforms version 26 (Android 8)
+4) Install Java version 8(only) 'http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html'
+5) install path.
+  === !!! find path  WIN + PAUSE/BRAKE !!! ===
+	a) ANDROID_HOME - C:\Users\Andrey\AppData\Local\Android\sdk
+	b) JAVA_HOME - c:\Program Files\Java\jdk1.8.0_152\
+	c) Path -
+		1) c:\Program Files\Java\jdk1.8.0_152\bin\
+		2) c:\Users\Andrey\AppData\Local\Android\Sdk\tools\
+		3) c:\Users\Andrey\AppData\Local\Android\Sdk\platform-tools\
+
+3) Run in terminal
+ionic cordova run android -l
+
+
+Debug some errors
+
+1) If can't run in android 4.2.2 (you see blank screen). Run comand in teminal
+	cordova plugin add cordova-plugin-crosswalk-webview
+
+2) Run in Redmi 4
+	1) ionic cordova build android
+	2) ionic cordova run android -l
+
+3) adb server version (32) doesn't match this client (39); killing...
+   could not read ok from ADB Server
+   * failed to start daemon
+   error: cannot connect to daemon
+
+  Fix
+  1) Your system have couple adb.exe. Need find it (from TotalCommander - disc C),
+      and just rewrite oldest version newest
+
+4) adb server is out of date.  killing...
+   ADB server didn't ACK
+   * failed to start daemon *
+   error: unknown host service
+
+   1) c:androidsdkplatform-tools>netstat -aon|findstr 5037 (run command where locate
+    SDK);
+    now you can run you devices;
+    source http://dennylabs.com/adb-server-didnt-ack-failed-to-start-deamon/
+
+5) "SDK Platform" for API level android-26
+  1) go to cd c:\Users\Super User\AppData\Local\Android\Sdk\tools\bin\
+  2) run command - sdkmanager "build-tools;26.0.0"
+

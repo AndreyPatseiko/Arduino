@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {LoadingController} from 'ionic-angular';
+import {BluetoothSerial} from '@ionic-native/bluetooth-serial';
+
 
 @Component({
   selector: 'page-home',
@@ -15,17 +17,35 @@ export class HomePage {
     {title: 'HH angle', id: 'hhAngle', symbol: 'deg'},
     {title: 'Hot time', id: 'hotTime', symbol: 'sec'},
   ];
+  private enableBTLoader;
   public isSensorWork: boolean;
 
-  constructor(public loadingCtrl: LoadingController) {
+  constructor(private loadingCtrl: LoadingController,
+              private bluetoothSerial: BluetoothSerial) {
+  }
+
+  connectForInsecure(data): void {
+    this.bluetoothSerial.connectInsecure(data.address).subscribe(
+      () => {
+        console.log('Connection success');
+        this.enableBTLoader.present()
+      },
+      err => {
+        console.log('Connection error', err.message)
+      }
+    );
   }
 
   connectToBT(): void {
-    let loader = this.loadingCtrl.create({
-      content: "Search BT! Please wait...",
+    this.enableBTLoader = this.loadingCtrl.create({
+      content: "Connect...",
       duration: 3000
     });
-    loader.present();
+    this.bluetoothSerial.enable().then(
+      () => {
+        this.connectForInsecure({address: '98:D3:31:FD:28:7E'});
+      }
+    );
   }
 
   setParam(fieldName: string): void {
