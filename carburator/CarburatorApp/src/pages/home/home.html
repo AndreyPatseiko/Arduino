@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Carburetor settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <button ion-button full (click)="connectToBT()">Connect from BT</button>
+  </div>
+
+  <ion-list>
+    <ion-item-group>
+      <!--Info section-->
+      <ion-item-divider color="light">Info</ion-item-divider>
+      <ion-item>
+        <ion-label class="data info">
+          <span>Temperature sensor is worked</span>
+          <div class="section center">
+            <ion-icon *ngIf="isSensorWork" name="checkmark-circle-outline" color="secondary"></ion-icon>
+            <ion-icon *ngIf="!isSensorWork" name="warning" color="danger"></ion-icon>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngFor="let iItem of infoList">
+        <ion-label class="data info">
+          <label [for]="iItem.id">{{iItem.title}}</label>
+          <div class="section">
+            <input type="text" [id]="iItem.id" readonly>
+            <span class="postfix"> {{iItem.symbol}} </span>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <div class="charts">
+          <div class="choke-info">
+            <p class="title">Choke</p>
+            <div class="choke">
+              <div class="throttle" [ngStyle]="{transform: 'rotate(90deg)'}"></div>
+            </div>
+          </div>
+
+          <div class="hh-info">
+            <p class="title">HH</p>
+            <div class="hh">
+              <div class="servo"></div>
+              <div class="accelerator"></div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+
+      <!--Change settings section-->
+      <ion-item-divider color="light">Settings</ion-item-divider>
+
+      <ion-item>
+        <ion-label>Servo setup</ion-label>
+        <ion-toggle checked="false"></ion-toggle>
+      </ion-item>
+
+      <ion-item *ngFor="let sItem of settingsList">
+        <ion-label class="data">
+          <label [for]="sItem.id">{{sItem.title}}</label>
+          <div class="section">
+            <input type="text" [id]="sItem.id">
+            <span class="postfix"> {{sItem.symbol}} </span>
+            <button ion-button (click)="setParam(sItem.id)">Set</button>
+          </div>
+        </ion-label>
+      </ion-item>
+
+
+    </ion-item-group>
+  </ion-list>
+</ion-content>
+
