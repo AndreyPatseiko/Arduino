@@ -8,7 +8,6 @@
   <div padding>
     <button ion-button full (click)="connectToBT()">Connect from BT</button>
   </div>
-
   <ion-list>
     <ion-item-group>
       <!--Info section-->
@@ -27,7 +26,10 @@
         <ion-label class="data info">
           <label [for]="iItem.id">{{iItem.title}}</label>
           <div class="section">
-            <input type="text" [id]="iItem.id" readonly>
+            <input type="text"
+                   [value]="info && info[iItem.paramsName] ? info[iItem.paramsName] : 0"
+                   [id]="iItem.id"
+                   readonly>
             <span class="postfix"> {{iItem.symbol}} </span>
           </div>
         </ion-label>
@@ -57,7 +59,7 @@
 
       <ion-item>
         <ion-label>Servo setup</ion-label>
-        <ion-toggle checked="false"></ion-toggle>
+        <ion-toggle checked="false" (ionChange)="setupModeChange()"></ion-toggle>
       </ion-item>
 
       <ion-item *ngFor="let sItem of settingsList">
